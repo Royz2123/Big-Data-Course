@@ -1,10 +1,13 @@
-
+import math
 import random
 
 
 class Point(object):
     def __init__(self, point_arr):
         self._coords = map(float, point_arr)
+
+    def get_dimension(self):
+        return len(self._coords)
 
     def euclid_dist(self, other):
         dist = 0
@@ -30,6 +33,35 @@ class Point(object):
     def __repr__(self):
         return "Point Object:\t%s" % self._coords
 
+
+class Table(object):
+    def __init__(self, points, epsilon, max_dist):
+        self._slots = {}
+        self._epsilon = epsilon
+        self._points = points
+        self._max_dist = max_dist
+
+        self._dimension = points[0].get_dimension()
+        self._size = 2*math.ceil(1 / float(epsilon))
+
+        self.construct_table()
+
+    def construct_table(self):
+        for point in self._points:
+            self.find_slot(point)
+
+    def find_slot(self, point):
+        chosen_slot = []
+        for coord in len(point):
+            for index in xrange(-self._size/2, self._size/2):
+                if index*self._epsilon*self._max_dist > coord:
+                    chosen_slot.append((index-1)*self._epsilon*self._max_dist)
+        self._slots[chosen_slot] = point
+
+    def get_coreset(self):
+        return self._slots.values()
+
+
 # Main function
 def one_center_grid_coreset(points, epsilon):
     # create point objects from input
@@ -37,10 +69,12 @@ def one_center_grid_coreset(points, epsilon):
 
     # choose the first point as u
     chosen_point = points[0]
-    print chosen_point.furthest_point(points)
+    furthest_point = chosen_point.furthest_point(points)
+    furthest_dist = chosen_point.euclid_dist(furthest_point)
 
-
-
+    # now we need to create the table
+    coreset_table = Table(points, epsilon, max_dist)
+    return coreset_table.get_coreset()
 
 
 def main():
@@ -49,10 +83,10 @@ def main():
         [1,1,1,1],
         [0,0,0,1.9],
     ]
-    epsilon = 1
+    epsilon = 0.1
 
     # test function
-    one_center_grid_coreset(input_points, epsilon)
+    print one_center_grid_coreset(input_points, epsilon)
 
 
 
