@@ -9,6 +9,9 @@ class Point(object):
     def get_dimension(self):
         return len(self._coords)
 
+    def get_point_arr(self):
+        return self._coords
+
     def euclid_dist(self, other):
         dist = 0
         for coord_index in range(len(self._coords)):
@@ -42,21 +45,21 @@ class Table(object):
         self._max_dist = max_dist
 
         self._dimension = points[0].get_dimension()
-        self._size = 2*math.ceil(1 / float(epsilon))
+        self._size = int(2*math.ceil(1 / float(epsilon)))
 
-        self.construct_table()
+        self.construct_slots()
 
-    def construct_table(self):
+    def construct_slots(self):
         for point in self._points:
             self.find_slot(point)
 
     def find_slot(self, point):
         chosen_slot = []
-        for coord in len(point):
+        for coord in point.get_point_arr():
             for index in xrange(-self._size/2, self._size/2):
                 if index*self._epsilon*self._max_dist > coord:
                     chosen_slot.append((index-1)*self._epsilon*self._max_dist)
-        self._slots[chosen_slot] = point
+        self._slots[tuple(chosen_slot)] = point
 
     def get_coreset(self):
         return self._slots.values()
@@ -73,8 +76,10 @@ def one_center_grid_coreset(points, epsilon):
     furthest_dist = chosen_point.euclid_dist(furthest_point)
 
     # now we need to create the table
-    coreset_table = Table(points, epsilon, max_dist)
-    return coreset_table.get_coreset()
+    coreset_table = Table(points, epsilon, furthest_dist)
+
+    # return the coreset as a list of lists
+    return map(Point.get_point_arr, coreset_table.get_coreset())
 
 
 def main():
