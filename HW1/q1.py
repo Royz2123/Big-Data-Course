@@ -1,6 +1,4 @@
 import math
-import random
-
 
 class Point(object):
     def __init__(self, point_arr):
@@ -80,21 +78,3 @@ def one_center_grid_coreset(points, epsilon):
 
     # return the coreset as a list of lists
     return map(Point.get_point_arr, coreset_table.get_coreset())
-
-
-def main():
-    input_points = [
-        [0,0,0,0],
-        [1,1,1,1],
-        [0,0,0,1.9],
-    ]
-    epsilon = 0.1
-
-    # test function
-    print one_center_grid_coreset(input_points, epsilon)
-
-
-
-
-if __name__ == "__main__":
-    main()
