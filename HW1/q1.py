@@ -2,46 +2,52 @@
 import random
 
 
-# point utilities
+class Point(object):
+    def __init__(self, point_arr):
+        self._coords = map(float, point_arr)
 
-# Returns the euclidian distance between two points
-def euclid_dist(point1, point2):
-    dist = 0
-    for coord_index in range(len(point1)):
-        dist += (point1[coord_index] - point2[coord_index])**2
-    return dist
+    def euclid_dist(self, other):
+        dist = 0
+        for coord_index in range(len(self._coords)):
+            dist += (self._coords[coord_index] - other._coords[coord_index])**2
+        return dist
 
-def farther_point(source_point, point1, point2):
-    if (
-        euclid_dist(source_point, point1)
-        > euclid_dist(source_point, point2)
-    ):
-        return point1
-    return point2
+    def farther_point(self, point1, point2):
+        if (self.euclid_dist(point1) > self.euclid_dist(point2)):
+            return point1
+        return point2
 
-def furthest_point(source_point, points):
-    return reduce(
-        (
-            lambda point1, point2 : point1 if (
-                euclid_dist(source_point, point1)
-                > euclid_dist(source_point, point2)
-            ) else point2
-        ),
-        points
-    )
+    def furthest_point(self, points):
+        return reduce(
+            (
+                lambda point1, point2 : point1 if (
+                    self.euclid_dist(point1) > self.euclid_dist(point2)
+                ) else point2
+            ),
+            points
+        )
+
+    def __repr__(self):
+        return "Point Object:\t%s" % self._coords
 
 # Main function
 def one_center_grid_coreset(points, epsilon):
+    # create point objects from input
+    points = map(Point, points)
+
     # choose the first point as u
     chosen_point = points[0]
-    print furthest_point(chosen_point, points)
+    print chosen_point.furthest_point(points)
+
+
+
 
 
 def main():
     input_points = [
         [0,0,0,0],
         [1,1,1,1],
-        [2,2,2,2],
+        [0,0,0,1.9],
     ]
     epsilon = 1
 
