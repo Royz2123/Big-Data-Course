@@ -18,7 +18,7 @@ class Point(object):
         dist = 0
         for coord_index in range(len(self._coords)):
             dist += (self._coords[coord_index] - other._coords[coord_index])**2
-        return dist
+        return math.sqrt(dist)
 
     def farther_point(self, point1, point2):
         if (self.euclid_dist(point1) > self.euclid_dist(point2)):
@@ -57,8 +57,6 @@ class Table(object):
     def construct_coreset(self):
         for point in self._points:
             self.find_slot(point)
-        print len(self._coreset)
-        print len(self._points)
 
     def find_slot(self, point):
         chosen_slot = []
@@ -72,7 +70,6 @@ class Table(object):
                 if (before_coord > point[coord_index]):
                     chosen_slot.append(index-1)
                     break
-
         self._coreset[tuple(chosen_slot)] = point
 
     def get_coreset(self):
