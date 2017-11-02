@@ -1,4 +1,5 @@
 import math
+import time
 
 class Point(object):
     def __init__(self, point_arr):
@@ -9,6 +10,9 @@ class Point(object):
 
     def get_point_arr(self):
         return self._coords
+
+    def __getitem__(self, arg):
+        return self._coords[arg]
 
     def euclid_dist(self, other):
         dist = 0
@@ -37,30 +41,42 @@ class Point(object):
 
 class Table(object):
     def __init__(self, points, epsilon, max_dist):
-        self._slots = {}
+        self._coreset = {}
         self._epsilon = epsilon
         self._points = points
         self._max_dist = max_dist
 
+        # define the center base point
+        self._base_point = points[0]
+
         self._dimension = points[0].get_dimension()
         self._size = int(2*math.ceil(1 / float(epsilon)))
 
-        self.construct_slots()
+        self.construct_coreset()
 
-    def construct_slots(self):
+    def construct_coreset(self):
         for point in self._points:
             self.find_slot(point)
+        print len(self._coreset)
+        print len(self._points)
 
     def find_slot(self, point):
         chosen_slot = []
-        for coord in point.get_point_arr():
+        for coord_index in range(len(point.get_point_arr())):
             for index in xrange(-self._size/2, self._size/2):
-                if index*self._epsilon*self._max_dist > coord:
-                    chosen_slot.append((index-1)*self._epsilon*self._max_dist)
-        self._slots[tuple(chosen_slot)] = point
+                # find the coord of the current box
+                before_coord = (
+                    self._base_point[coord_index]
+                    + index*self._epsilon*self._max_dist
+                )
+                if (before_coord > point[coord_index]):
+                    chosen_slot.append(index-1)
+                    break
+
+        self._coreset[tuple(chosen_slot)] = point
 
     def get_coreset(self):
-        return self._slots.values()
+        return self._coreset.values()
 
 
 # Main function

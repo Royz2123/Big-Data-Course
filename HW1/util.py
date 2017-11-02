@@ -3,8 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def plot_points(x_values, y_values):
+def plot_points(x_values, y_values, x_name="", y_name=""):
     plt.scatter(x_values, y_values)
+    plt.ylabel(y_name)
+    plt.xlabel(x_name)
     plt.show()
 
 def generate_random(min_val, max_val, size):

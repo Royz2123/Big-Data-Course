@@ -2,7 +2,7 @@ import q1
 import util
 
 INPUT_SIZE = 2000
-DIMENSION = 3
+DIMENSION = 2
 
 # divide by 10 later
 MAX_EPSILON = 10
@@ -59,7 +59,7 @@ def main():
         x_values.append(mi)
         y_values.append(epsilon)
 
-    util.plot_points(x_values, y_values)
+    util.plot_points(x_values, y_values, "error", "epsilon")
 
 
 if __name__ == "__main__":

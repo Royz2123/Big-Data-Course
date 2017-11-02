@@ -33,7 +33,7 @@ def main():
         y_values.append(input_size)
 
     # plot the results
-    util.plot_points(x_values, y_values)
+    util.plot_points(x_values, y_values, "coreset size", "input size")
 
 
 if __name__ == "__main__":
