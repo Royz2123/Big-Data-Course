@@ -11,7 +11,6 @@ RANGE = 1000
 DIMENSION = 3
 EPSILON = 0.5
 
-
 def main():
     x_values = []
     y_values = []
