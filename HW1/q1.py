@@ -21,6 +21,12 @@ class Point(object):
             vect.append(self._coords[coord] - other._coords[coord])
         return Point(vect)
 
+    def __add__(self, other):
+        vect = []
+        for coord in range(len(self._coords)):
+            vect.append(self._coords[coord] + other._coords[coord])
+        return Point(vect)
+
     def euclid_dist(self, other):
         dist = 0
         for coord_index in range(len(self._coords)):
@@ -62,8 +68,10 @@ class Table(object):
         dist_vect = Point([self._max_dist for i in range(self._dimension)])
         self._top_left = self._base_point - dist_vect
 
+        # compute size as 2/e
         self._size = int(math.ceil(2 / float(epsilon)))
 
+        # construct_coreset
         self.construct_coreset()
 
     def construct_coreset(self):
