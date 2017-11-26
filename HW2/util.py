@@ -18,6 +18,23 @@ def generate_random_points(min_val, max_val, size, dimension=3):
         points.append(generate_random(min_val, max_val, dimension))
     return points
 
+
+
+## DATA UTILITIES
+
+# returns the top k elements in the list and removes them
+# the sorting occurs based on the index provided
+def k_select(elements, k, comparer, args=[]):
+    pass
+
+## GEOMETRIC UTILITIES
+def far_inf(p, sample):
+    return max([far_inf_2pnts(p, point) for point in sample])
+
+def far_inf_2pnts(p1, p2):
+    pass
+
+
 class Point(object):
     def __init__(self, point_arr):
         self._coords = map(float, point_arr)
