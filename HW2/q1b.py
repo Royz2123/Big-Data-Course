@@ -19,7 +19,7 @@ def ab_approx(P, k, epsilon):
         # remove (1-eps)n closest points
         util.k_select(
             P,
-            len(P) - int(1-epsilon)*len(P),
+            int(1-epsilon)*len(P),
             comparer,
             dists
         )
