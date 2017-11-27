@@ -21,10 +21,10 @@ def ab_approx(P, k, epsilon):
             P,
             int(1-epsilon)*len(P),
             comparer,
-            dists
+            [dists]
         )
 
-def comparer(dists, a, b):
+def comparer(a, b, dists):
     if dists[a] > dists[b]:
         return a
     return b

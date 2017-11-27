@@ -25,13 +25,13 @@ def recur_eps_sample(groups, epsilon, dim, max_dim):
                 group,
                 len(group)*epsilon,
                 comparer,
-                index
+                [index]
             ))
 
     # finally return the recursive call on dim+1
     return recur_eps_sample(new_groups, epsilon, dim+1, max_dim)
 
-def comparer(index, a, b):
+def comparer(a, b, index):
     if a[index] > b[index]:
         return a
     return b
