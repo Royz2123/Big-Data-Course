@@ -22,10 +22,6 @@ def k_select(elements, k, comparer, args=[]):
         else:
             rest.append(elem)
 
-    print "%d, %d, %d, %d" % (
-        len(elements), k, len(top_k), len(rest)
-    )
-
     # return the top k values
     return top_k, rest
 

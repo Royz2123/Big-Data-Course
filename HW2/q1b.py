@@ -43,8 +43,8 @@ def comparer(a, b):
     return False
 
 def main():
-    test_points = util.generate_random_points(0, 1000, 1001, 2)
-    representatives = ab_approx(test_points, 10, 0.2)
+    test_points = util.generate_random_points(0, 1000, 5001, 2)
+    representatives = ab_approx(test_points, 10, 0.1)
 
     # plot the results
     util.plot_geo_points(test_points)
