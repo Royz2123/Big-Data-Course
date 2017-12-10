@@ -7,23 +7,26 @@ import time
 # returns also if we should contineue
 def k_select(elements, k, comparer, args=[]):
     if k >= len(elements):
-        return elements, False
+        return elements, []
 
     # first find the kth largest element
     k_val = quickselect(elements, k, comparer, args)
 
+
     # now return all the elements that are "larger" than k
-    ret = []
+    top_k = []
+    rest = []
     for elem in elements[:]:
         if comparer(elem, k_val, *args):
-            ret.append(elem)
-            elements.remove(elem)
+            top_k.append(elem)
+        else:
+            rest.append(elem)
 
     # return the top k values
-    return ret, True
+    return top_k, rest
 
 
-# ALGORITHM SIMILAR TO QUIKSORT
+# ALGORITHM SIMILAR TO QUICKSORT
 
 def select(lst, l, r, index, comparer, args):
     # base case

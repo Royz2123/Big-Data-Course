@@ -11,12 +11,18 @@ def plot_points(x_values, y_values, x_name="", y_name=""):
     plt.xlabel(x_name)
     plt.show()
 
-# plots a set of points in dim = 2
+# plots a set of points in dim <= 2
 def plot_geo_points(points):
-    plot_points(
-        [p[0] for p in points],
-        [p[1] for p in points],
-    )
+    if len(points[0]) == 1:
+        plot_points(
+            [p[0] for p in points],
+            [0 for p in points],
+        )
+    else:
+        plot_points(
+            [p[0] for p in points],
+            [p[1] for p in points],
+        )
 
 def generate_random(min_val, max_val, size):
     return [(random.random()*max_val + min_val) for i in xrange(size)]
@@ -35,7 +41,10 @@ def far_inf(p, sample):
     return max([far_inf_2pnts(p, point) for point in sample])
 
 def far_inf_2pnts(p1, p2):
-    pass
+    return np.linalg.norm(
+        (Point(p1) - Point(p2)).get_point_arr(),
+        np.inf
+    )
 
 
 class Point(object):

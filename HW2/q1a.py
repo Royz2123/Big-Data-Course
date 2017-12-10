@@ -24,9 +24,8 @@ def recur_eps_sample(groups, epsilon, dim, max_dim):
         working_group = group[:]
 
         # split this group into sets of k
-        cont = True
-        while cont:
-            top_k, cont = k_select.k_select(
+        while len(working_group):
+            top_k, working_group = k_select.k_select(
                 working_group,
                 int(len(group)*epsilon),
                 comparer,
