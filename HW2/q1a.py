@@ -38,12 +38,12 @@ def recur_eps_sample(groups, epsilon, dim, max_dim):
 
 # For this exercise, this is the equivelant of a > b
 def comparer(a, b, index):
-    if a[index] > b[index]:
+    if a[index] >= b[index]:
         return True
     return False
 
 def main():
-    test_points = util.generate_random_points(0, 1000, 500, 2)
+    test_points = util.generate_random_points(0, 1000, 1534, 3)
     representatives = eps_sample(test_points, 0.2)
 
     # plot the results

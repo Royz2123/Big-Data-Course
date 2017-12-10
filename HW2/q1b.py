@@ -9,7 +9,7 @@ def ab_approx(P, k, epsilon):
 
     # find ab approx
     # while we still have points to remove (the rest is constant)
-    while int((1-epsilon)*len(P)) > 1:
+    while int((1-epsilon)*len(P)) > 0:
         # compute the epsilon sample
         sample = q1a.eps_sample(P, epsilon)
 
@@ -38,12 +38,12 @@ def ab_approx(P, k, epsilon):
 
 # For this exercise, this is the equivelant of a > b
 def comparer(a, b):
-    if a[1] < b[1]:
+    if a[1] <= b[1]:
         return True
     return False
 
 def main():
-    test_points = util.generate_random_points(0, 1000, 1001, 1)
+    test_points = util.generate_random_points(0, 1000, 1001, 2)
     representatives = ab_approx(test_points, 10, 0.2)
 
     # plot the results
