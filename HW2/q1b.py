@@ -1,6 +1,5 @@
 import q1a
 
-
 def ab_approx(P, k, epsilon):
     output = []
 
@@ -17,14 +16,15 @@ def ab_approx(P, k, epsilon):
             dists[point] = util.far_inf(point, sample)
 
         # remove (1-eps)n closest points
-        util.k_select(
+        k_select.k_select(
             P,
             int(1-epsilon)*len(P),
             comparer,
             [dists]
         )
 
+# For this exercise, this is the equivelant of a > b
 def comparer(a, b, dists):
     if dists[a] > dists[b]:
-        return a
-    return b
+        return True
+    return False

@@ -11,6 +11,13 @@ def plot_points(x_values, y_values, x_name="", y_name=""):
     plt.xlabel(x_name)
     plt.show()
 
+# plots a set of points in dim = 2
+def plot_geo_points(points):
+    plot_points(
+        [p[0] for p in points],
+        [p[1] for p in points],
+    )
+
 def generate_random(min_val, max_val, size):
     return [(random.random()*max_val + min_val) for i in xrange(size)]
 
@@ -22,11 +29,6 @@ def generate_random_points(min_val, max_val, size, dimension=3):
 
 
 ## DATA UTILITIES
-
-# returns the top k elements in the list and removes them
-# the sorting occurs based on the index provided
-def k_select(elements, k, comparer, args=[]):
-    pass
 
 ## GEOMETRIC UTILITIES
 def far_inf(p, sample):
