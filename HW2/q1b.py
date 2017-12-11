@@ -9,9 +9,9 @@ def ab_approx(P, k, epsilon):
 
     # find ab approx
     # while we still have points to remove (the rest is constant)
-    while int((1-epsilon)*len(P)) > 0:
+    while int(0.5 * len(P)) > 0:
         # compute the epsilon sample
-        sample = q1a.eps_sample(P, epsilon)
+        sample = q1a.eps_sample(P, epsilon / k)
 
         # add representatives to output
         output += sample
@@ -25,7 +25,7 @@ def ab_approx(P, k, epsilon):
         # remove (1-eps)n closest points
         top_k, computed_points = k_select.k_select(
             computed_points,
-            int((1-epsilon)*len(P)),
+            int(0.5 * len(P)),
             comparer,
             tuple([])
         )
@@ -42,9 +42,10 @@ def comparer(a, b):
         return True
     return False
 
+
 def main():
-    test_points = util.generate_random_points(0, 1000, 5001, 2)
-    representatives = ab_approx(test_points, 10, 0.1)
+    test_points = util.generate_random_points(0, 100, 1000, 2)
+    representatives = ab_approx(test_points, 3, 0.2)
 
     # plot the results
     util.plot_geo_points(test_points)

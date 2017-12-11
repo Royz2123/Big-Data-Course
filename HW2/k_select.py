@@ -12,7 +12,6 @@ def k_select(elements, k, comparer, args=[]):
     # first find the kth largest element
     k_val = quickselect(elements, k, comparer, args)
 
-
     # now return all the elements that are "larger" than k
     top_k = []
     rest = []
